@@ -1,7 +1,6 @@
 package aws.community.toolkits.bedrock.common;
 
 public abstract class FoundationModel {
-
     private final String modelId;
 
     protected FoundationModel(String modelId) {
@@ -12,7 +11,7 @@ public abstract class FoundationModel {
         return modelId;
     }
 
-    public abstract void validate(TextGenerationConfig config);
+    public abstract ModelParameters.Temperature temperature();
 
-    public abstract TextGenerationConfig defaultConfig();
+    public abstract ModelParameters.TopP topP();
 }

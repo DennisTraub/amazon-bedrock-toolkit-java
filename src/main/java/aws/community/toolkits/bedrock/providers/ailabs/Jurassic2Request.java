@@ -8,7 +8,7 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 
 public class Jurassic2Request {
-    private final String modelId = Models.AILABS_JURASSIC_2.modelId();
+    private final String modelId = Models.AILabsJurassic2.modelId();
     private final String contentType;
     private final String accept;
     private final SdkBytes body;

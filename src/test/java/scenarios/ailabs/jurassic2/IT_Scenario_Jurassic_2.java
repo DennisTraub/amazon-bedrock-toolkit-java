@@ -1,7 +1,6 @@
 package scenarios.ailabs.jurassic2;
 
 import aws.community.toolkits.bedrock.SimpleBedrockClient;
-import aws.community.toolkits.bedrock.common.TextGenerationConfig;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Request;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
 import org.json.JSONObject;
@@ -10,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 
-import static aws.community.toolkits.bedrock.Models.AILABS_JURASSIC_2;
-import static org.junit.jupiter.api.Assertions.*;
+import static aws.community.toolkits.bedrock.Models.AILabsJurassic2;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class IT_Scenario_Jurassic_2 {
@@ -27,29 +26,7 @@ class IT_Scenario_Jurassic_2 {
     void simpleInvocation() {
         String prompt = "Hello";
 
-        String simpleCompletion = client.invokeModel(AILABS_JURASSIC_2, prompt);
-
-        assertNotNull(simpleCompletion);
-    }
-
-    @Test
-    void simpleInvocationWithDefaultConfig() {
-        String prompt = "Hello";
-
-        String simpleCompletion = client.invokeModel(AILABS_JURASSIC_2, prompt, TextGenerationConfig.DEFAULT);
-
-        assertNotNull(simpleCompletion);
-    }
-
-    @Test
-    void simpleInvocationWithCustomConfig() {
-        String prompt = "Hello";
-
-        double temperature = 0.5;
-
-        TextGenerationConfig config = new TextGenerationConfig(temperature);
-
-        String simpleCompletion = client.invokeModel(AILABS_JURASSIC_2, prompt, config);
+        String simpleCompletion = client.invokeModel(AILabsJurassic2, prompt);
 
         assertNotNull(simpleCompletion);
     }

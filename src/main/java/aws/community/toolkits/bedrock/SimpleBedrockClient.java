@@ -1,10 +1,9 @@
 package aws.community.toolkits.bedrock;
 
 import aws.community.toolkits.bedrock.common.FoundationModel;
-import aws.community.toolkits.bedrock.tools.validation.PromptValidator;
-import aws.community.toolkits.bedrock.common.TextGenerationConfig;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Request;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
+import aws.community.toolkits.bedrock.tools.validation.PromptValidator;
 import org.json.JSONObject;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
@@ -26,21 +25,11 @@ public class SimpleBedrockClient {
     }
 
     public String invokeModel(FoundationModel model, String prompt) {
-        return invokeModel(model, prompt, TextGenerationConfig.DEFAULT);
-    }
-
-    public String invokeModel(FoundationModel model, String prompt, TextGenerationConfig config) {
         PromptValidator.validate(prompt);
 
         InvokeModelRequest request;
 
-        if (config == TextGenerationConfig.DEFAULT) {
-            config = model.defaultConfig();
-        }
-
-        if (model.equals(Models.AILABS_JURASSIC_2)) {
-            Models.AILABS_JURASSIC_2.validate(config);
-
+        if (model.equals(Models.AILabsJurassic2)) {
             String payload = new JSONObject()
                     .put("prompt", prompt)
                     .put("temperature", 0.5)
