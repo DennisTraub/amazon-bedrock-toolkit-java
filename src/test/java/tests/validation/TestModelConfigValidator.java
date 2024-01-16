@@ -1,4 +1,4 @@
-package tests.common;
+package tests.validation;
 
 import aws.community.toolkits.bedrock.tools.validation.ModelConfigValidator;
 import org.junit.jupiter.api.Tag;

@@ -1,6 +1,5 @@
 package aws.community.toolkits.bedrock;
 
-import aws.community.toolkits.bedrock.common.FoundationModel;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Request;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
 import aws.community.toolkits.bedrock.tools.validation.PromptValidator;

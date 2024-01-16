@@ -1,8 +1,8 @@
 package aws.community.toolkits.bedrock.providers.ailabs;
 
-import aws.community.toolkits.bedrock.common.FoundationModel;
-import aws.community.toolkits.bedrock.common.ModelParameters;
-import aws.community.toolkits.bedrock.common.ModelParameters.Temperature;
+import aws.community.toolkits.bedrock.FoundationModel;
+import aws.community.toolkits.bedrock.ModelParameters;
+import aws.community.toolkits.bedrock.ModelParameters.Temperature;
 
 public class Jurassic2Model extends FoundationModel {
     public static final String MODEL_ID = "ai21.j2-mid-v1";

@@ -1,4 +1,4 @@
-package tests.common;
+package tests.validation;
 
 import aws.community.toolkits.bedrock.tools.validation.PromptValidator;
 import org.junit.jupiter.api.Tag;

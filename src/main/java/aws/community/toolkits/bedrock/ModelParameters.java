@@ -1,4 +1,4 @@
-package aws.community.toolkits.bedrock.common;
+package aws.community.toolkits.bedrock;
 
 public final class ModelParameters {
     public record Temperature(double defaultValue, double minimumValue, double maximumValue) {}

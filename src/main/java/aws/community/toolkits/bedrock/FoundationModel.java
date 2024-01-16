@@ -1,4 +1,4 @@
-package aws.community.toolkits.bedrock.common;
+package aws.community.toolkits.bedrock;
 
 public abstract class FoundationModel {
     private final String modelId;
