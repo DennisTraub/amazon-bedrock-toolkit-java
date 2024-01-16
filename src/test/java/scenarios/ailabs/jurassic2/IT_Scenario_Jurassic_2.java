@@ -1,5 +1,6 @@
+package scenarios.ailabs.jurassic2;
+
 import aws.community.toolkits.bedrock.SimpleBedrockClient;
-import aws.community.toolkits.bedrock.Models;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Request;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
 import org.json.JSONObject;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 
+import static aws.community.toolkits.bedrock.Models.AILABS_JURASSIC_2;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -18,7 +20,7 @@ class IT_Scenario_Jurassic_2 {
         String prompt = "Hello";
 
         // Simple invocation returns completion
-        String simpleCompletion = client.invokeModel(Models.AILABS_JURASSIC_2, prompt);
+        String simpleCompletion = client.invokeModel(AILABS_JURASSIC_2, prompt);
 
         // Using builder returns response object
         Jurassic2Request request = Jurassic2Request.builder().prompt("Hello").build();
@@ -35,33 +37,12 @@ class IT_Scenario_Jurassic_2 {
                 .getJSONObject(0)
                 .getJSONObject("data")
                 .getString("text");
+
+        assertNotNull(lowLevelCompletion);
     }
 
 
-    @Test
-    void SimpleInvokation() {
-        SimpleBedrockClient client = new SimpleBedrockClient();
-        String prompt = "Hello";
-        String completion = client.invokeModel(Models.AILABS_JURASSIC_2, prompt);
-        assertNotNullOrEmpty(completion);
-        System.out.println(completion);
-    }
 
-    @Test
-    void InvokeWithRequestBuilderShouldReturnResponseWithHighLevelCompletion() {
-        SimpleBedrockClient client = new SimpleBedrockClient();
-
-        Jurassic2Request request = Jurassic2Request.builder()
-                .prompt("Hello")
-                .build();
-
-        Jurassic2Response response = client.invokeModel(request);
-
-        String completion = response.completion();
-
-        assertNotNullOrEmpty(completion);
-        System.out.println(completion);
-    }
 
     @Test
     void InvokeWithRequestBuilderShouldReturnResponseWithLowLevelSdkResponse() {
@@ -95,8 +76,5 @@ class IT_Scenario_Jurassic_2 {
     }
 
 
-    protected void assertNotNullOrEmpty(String string) {
-        assertNotNull(string);
-        assertFalse(string.trim().isEmpty());
-    }
+
 }

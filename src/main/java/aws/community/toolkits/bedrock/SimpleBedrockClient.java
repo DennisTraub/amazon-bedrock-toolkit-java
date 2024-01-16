@@ -23,6 +23,13 @@ public class SimpleBedrockClient {
     }
 
     public String invokeModel(FoundationModel model, String prompt) {
+        if(prompt == null) {
+            throw new IllegalArgumentException("Prompt cannot be null");
+        }
+        if(prompt.trim().isEmpty()) {
+            throw new IllegalArgumentException("Prompt cannot be empty");
+        }
+
         InvokeModelRequest request;
 
         if (model.equals(Models.AILABS_JURASSIC_2)) {

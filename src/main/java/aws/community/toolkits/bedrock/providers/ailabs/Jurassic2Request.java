@@ -44,7 +44,7 @@ public class Jurassic2Request {
 
             String payload = new JSONObject()
                     .put("prompt", this.prompt)
-                    .put("temperature", 0.5)
+                    .put("temperature", this.temperature)
                     .put("maxTokens", 200)
                     .toString();
 
@@ -56,6 +56,7 @@ public class Jurassic2Request {
 
     public abstract static class Builder {
         String prompt;
+        double temperature = 0.5;
 
         public Builder prompt(String prompt) {
             if(prompt == null) {
@@ -69,5 +70,15 @@ public class Jurassic2Request {
         }
 
         public abstract Jurassic2Request build();
+
+        public Builder temperature(double temperature) {
+            if(temperature < 0) {
+                throw new IllegalArgumentException("Temperature must be >= 0");
+            } else if (temperature > 1) {
+                throw new IllegalArgumentException("Temperature must be <= 1");
+            }
+            this.temperature = temperature;
+            return this;
+        }
     }
 }
