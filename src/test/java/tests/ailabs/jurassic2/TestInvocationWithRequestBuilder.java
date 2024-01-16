@@ -6,6 +6,7 @@ import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
 import tests.TestBase;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,14 +16,14 @@ class TestInvocationWithRequestBuilder extends TestBase {
 
     @Test
     @Tag("UnitTest")
-    void ShouldAcceptPrompt() {
+    void shouldAcceptPrompt() {
         Jurassic2Request request = Jurassic2Request.builder().prompt("Hello").build();
         assertNotNull(request);
     }
 
     @Test
     @Tag("UnitTest")
-    void InvalidPrompt_ShouldThrow() {
+    void invalidPrompt_ShouldThrow() {
         String nullPrompt = null;
         assertThrowsExactly(
                 IllegalArgumentException.class,
@@ -44,7 +45,7 @@ class TestInvocationWithRequestBuilder extends TestBase {
 
     @Test
     @Tag("IntegrationTest")
-    void ShouldReturnHighLevelObjects() {
+    void shouldReturnHighLevelObjects() {
         SimpleBedrockClient client = new SimpleBedrockClient();
 
         Jurassic2Request request = Jurassic2Request.builder()
@@ -57,5 +58,21 @@ class TestInvocationWithRequestBuilder extends TestBase {
         String completion = response.completion();
 
         assertNotNullOrEmpty(completion);
+    }
+
+    @Test
+    void shouldReturnLowLevelSdkResponse() {
+        SimpleBedrockClient client = new SimpleBedrockClient();
+
+        Jurassic2Request request = Jurassic2Request.builder()
+                .prompt("Hello")
+                .build();
+
+        Jurassic2Response response = client.invokeModel(request);
+
+        InvokeModelResponse sdkResponse = response.sdkResponse();
+
+        assertNotNull(sdkResponse);
+        System.out.println(sdkResponse);
     }
 }

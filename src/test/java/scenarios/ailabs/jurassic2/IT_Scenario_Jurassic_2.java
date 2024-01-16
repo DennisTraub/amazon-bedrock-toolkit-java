@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class IT_Scenario_Jurassic_2 {
 
     @Test
-    void Scenarios() {
+    void scenarios() {
         SimpleBedrockClient client = new SimpleBedrockClient();
         String prompt = "Hello";
 
@@ -40,41 +40,4 @@ class IT_Scenario_Jurassic_2 {
 
         assertNotNull(lowLevelCompletion);
     }
-
-
-
-
-    @Test
-    void InvokeWithRequestBuilderShouldReturnResponseWithLowLevelSdkResponse() {
-        SimpleBedrockClient client = new SimpleBedrockClient();
-
-        Jurassic2Request request = Jurassic2Request.builder()
-                .prompt("Hello")
-                .build();
-
-        Jurassic2Response response = client.invokeModel(request);
-
-        InvokeModelResponse sdkResponse = response.sdkResponse();
-
-        assertNotNull(sdkResponse);
-        System.out.println(sdkResponse);
-    }
-
-    @Test
-    void InvokeWithoutPromptShouldThrow() {
-        assertThrowsExactly(IllegalStateException.class, () -> Jurassic2Request.builder().build());
-    }
-
-    @Test
-    void InvokeWithNullPromptShouldThrow() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> Jurassic2Request.builder().prompt(null).build());
-    }
-
-    @Test
-    void InvokeWithEmptyPromptShouldThrow() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> Jurassic2Request.builder().prompt("").build());
-    }
-
-
-
 }

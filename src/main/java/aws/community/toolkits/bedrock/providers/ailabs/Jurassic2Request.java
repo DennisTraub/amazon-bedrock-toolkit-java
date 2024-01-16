@@ -32,8 +32,8 @@ public class Jurassic2Request {
 
     static final class BuilderImpl extends Builder {
         private SdkBytes body;
-        private String contentType;
         private String accept;
+        private String contentType;
 
         private BuilderImpl() {}
 
