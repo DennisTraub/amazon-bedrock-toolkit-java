@@ -1,15 +1,17 @@
 package aws.community.toolkits.bedrock.providers.ailabs;
 
 import aws.community.toolkits.bedrock.Models;
+import aws.community.toolkits.bedrock.tools.validation.ModelConfigValidator;
+import aws.community.toolkits.bedrock.tools.validation.PromptValidator;
 import org.json.JSONObject;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelRequest;
 
 public class Jurassic2Request {
     private final String modelId = Models.AILABS_JURASSIC_2.modelId();
-    private final SdkBytes body;
     private final String contentType;
     private final String accept;
+    private final SdkBytes body;
 
     private Jurassic2Request(BuilderImpl builder) {
         this.body = builder.body;
@@ -32,10 +34,13 @@ public class Jurassic2Request {
 
     static final class BuilderImpl extends Builder {
         private SdkBytes body;
-        private String accept;
-        private String contentType;
+        private final String accept;
+        private final String contentType;
 
-        private BuilderImpl() {}
+        private BuilderImpl() {
+            accept = "application/json";
+            contentType = "application/json";
+        }
 
         public Jurassic2Request build() {
             if (this.prompt == null) {
@@ -59,12 +64,7 @@ public class Jurassic2Request {
         double temperature = 0.5;
 
         public Builder prompt(String prompt) {
-            if(prompt == null) {
-                throw new IllegalArgumentException("Prompt cannot be null");
-            }
-            if(prompt.trim().isEmpty()) {
-                throw new IllegalArgumentException("Prompt cannot be empty");
-            }
+            PromptValidator.validate(prompt);
             this.prompt = prompt;
             return this;
         }
@@ -72,11 +72,11 @@ public class Jurassic2Request {
         public abstract Jurassic2Request build();
 
         public Builder temperature(double temperature) {
-            if(temperature < 0) {
-                throw new IllegalArgumentException("Temperature must be >= 0");
-            } else if (temperature > 1) {
-                throw new IllegalArgumentException("Temperature must be <= 1");
-            }
+            ModelConfigValidator.validateTemperature(
+                    temperature,
+                    Jurassic2Model.MIN_TEMPERATURE,
+                    Jurassic2Model.MAX_TEMPERATURE
+            );
             this.temperature = temperature;
             return this;
         }

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import software.amazon.awssdk.services.bedrockruntime.model.InvokeModelResponse;
-import tests.common.TestBase;
+import tests.testutilities.TestBase;
 
 import static org.junit.jupiter.api.Assertions.*;
 

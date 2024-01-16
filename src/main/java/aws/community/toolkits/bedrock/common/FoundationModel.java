@@ -1,6 +1,4 @@
-package aws.community.toolkits.bedrock;
-
-import aws.community.toolkits.bedrock.common.TextGenerationConfig;
+package aws.community.toolkits.bedrock.common;
 
 public abstract class FoundationModel {
 

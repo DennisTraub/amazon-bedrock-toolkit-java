@@ -1,5 +1,7 @@
 package aws.community.toolkits.bedrock;
 
+import aws.community.toolkits.bedrock.common.FoundationModel;
+import aws.community.toolkits.bedrock.tools.validation.PromptValidator;
 import aws.community.toolkits.bedrock.common.TextGenerationConfig;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Request;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
@@ -28,19 +30,15 @@ public class SimpleBedrockClient {
     }
 
     public String invokeModel(FoundationModel model, String prompt, TextGenerationConfig config) {
-        if(prompt == null) {
-            throw new IllegalArgumentException("Prompt cannot be null");
-        }
-        if(prompt.trim().isEmpty()) {
-            throw new IllegalArgumentException("Prompt cannot be empty");
-        }
+        PromptValidator.validate(prompt);
 
         InvokeModelRequest request;
 
+        if (config == TextGenerationConfig.DEFAULT) {
+            config = model.defaultConfig();
+        }
+
         if (model.equals(Models.AILABS_JURASSIC_2)) {
-            if (config == TextGenerationConfig.DEFAULT) {
-                config = Models.AILABS_JURASSIC_2.defaultConfig();
-            }
             Models.AILABS_JURASSIC_2.validate(config);
 
             String payload = new JSONObject()

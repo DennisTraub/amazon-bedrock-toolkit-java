@@ -3,7 +3,7 @@ package tests.ailabs.jurassic2;
 import aws.community.toolkits.bedrock.SimpleBedrockClient;
 import aws.community.toolkits.bedrock.common.TextGenerationConfig;
 import org.junit.jupiter.api.*;
-import tests.common.TestBase;
+import tests.testutilities.TestBase;
 
 import static aws.community.toolkits.bedrock.Models.AILABS_JURASSIC_2;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +24,6 @@ class TestSimpleInvocation extends TestBase {
     void withPrompt_ShouldReturnCompletion() {
         String completion = client.invokeModel(AILABS_JURASSIC_2, TEST_PROMPT);
         assertNotNullOrEmpty(completion);
-        System.out.println(completion);
     }
 
     @Test
@@ -32,7 +31,6 @@ class TestSimpleInvocation extends TestBase {
     void withDefaultParameterObject_ShouldReturnCompletion() {
         String completion = client.invokeModel(AILABS_JURASSIC_2, TEST_PROMPT, TextGenerationConfig.DEFAULT);
         assertNotNullOrEmpty(completion);
-        System.out.println(completion);
     }
 
     @Test

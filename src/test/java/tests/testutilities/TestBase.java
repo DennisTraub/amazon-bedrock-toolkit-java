@@ -1,4 +1,4 @@
-package tests.common;
+package tests.testutilities;
 
 import org.junit.jupiter.api.Assertions;
 

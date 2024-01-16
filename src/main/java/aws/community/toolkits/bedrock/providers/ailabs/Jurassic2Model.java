@@ -1,6 +1,7 @@
 package aws.community.toolkits.bedrock.providers.ailabs;
 
-import aws.community.toolkits.bedrock.FoundationModel;
+import aws.community.toolkits.bedrock.common.FoundationModel;
+import aws.community.toolkits.bedrock.tools.validation.ModelConfigValidator;
 import aws.community.toolkits.bedrock.common.TextGenerationConfig;
 
 public class Jurassic2Model extends FoundationModel {
@@ -18,10 +19,6 @@ public class Jurassic2Model extends FoundationModel {
     }
 
     public void validate(TextGenerationConfig config) {
-        if(config.temperature() < MIN_TEMPERATURE) {
-            throw new IllegalArgumentException("Temperature must be >= 0");
-        } else if (config.temperature() > MAX_TEMPERATURE) {
-            throw new IllegalArgumentException("Temperature must be <= 1");
-        }
+        ModelConfigValidator.validateTemperature(config.temperature(), MIN_TEMPERATURE, MAX_TEMPERATURE);
     }
 }

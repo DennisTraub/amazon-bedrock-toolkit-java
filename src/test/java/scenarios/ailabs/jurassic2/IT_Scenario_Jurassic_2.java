@@ -21,6 +21,8 @@ class IT_Scenario_Jurassic_2 {
 
         // Simple invocation returns completion
         String simpleCompletion = client.invokeModel(AILABS_JURASSIC_2, prompt);
+        assertNotNull(simpleCompletion);
+        System.out.println(simpleCompletion);
 
         // Using builder returns response object
         Jurassic2Request request = Jurassic2Request.builder()
@@ -31,6 +33,8 @@ class IT_Scenario_Jurassic_2 {
 
         // Response object provides high-level API to get completion
         String highLevelCompletion = response.completion();
+        assertNotNull(highLevelCompletion);
+        System.out.println(highLevelCompletion);
 
         // Response object provides low-level API from AWS SDK
         InvokeModelResponse sdkResponse = response.sdkResponse();
@@ -40,7 +44,7 @@ class IT_Scenario_Jurassic_2 {
                 .getJSONObject(0)
                 .getJSONObject("data")
                 .getString("text");
-
         assertNotNull(lowLevelCompletion);
+        System.out.println(lowLevelCompletion);
     }
 }
