@@ -34,4 +34,29 @@ class TestModelConfigValidator {
                 () -> ModelConfigValidator.validateTemperature(max + 0.1, min, max)
         );
     }
+
+    @Test
+    @Tag("UnitTest")
+    void validateTopPShouldAllowValidValues() {
+        double min = 0;
+        double max = 1;
+        assertDoesNotThrow(() -> ModelConfigValidator.validateTopP(min, min, max));
+        assertDoesNotThrow(() -> ModelConfigValidator.validateTopP(max/2, min, max));
+        assertDoesNotThrow(() -> ModelConfigValidator.validateTopP(max, min, max));
+    }
+
+    @Test
+    @Tag("UnitTest")
+    void validateTopPShouldThrowOnInvalidValues() {
+        double min = 0;
+        double max = 1;
+        assertThrowsExactly(
+                IllegalArgumentException.class,
+                () -> ModelConfigValidator.validateTopP(min - 0.1, min, max)
+        );
+        assertThrowsExactly(
+                IllegalArgumentException.class,
+                () -> ModelConfigValidator.validateTopP(max + 0.1, min, max)
+        );
+    }
 }

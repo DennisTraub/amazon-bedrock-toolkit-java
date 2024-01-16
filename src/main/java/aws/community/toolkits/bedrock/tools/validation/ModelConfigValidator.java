@@ -8,4 +8,12 @@ public class ModelConfigValidator {
             throw new IllegalArgumentException("Temperature must be <= " + max);
         }
     }
+
+    public static void validateTopP(double topP, double min, double max) {
+        if(topP < min) {
+            throw new IllegalArgumentException("Top P must be >= " + min);
+        } else if (topP > max) {
+            throw new IllegalArgumentException("Top P must be <= " + max);
+        }
+    }
 }
