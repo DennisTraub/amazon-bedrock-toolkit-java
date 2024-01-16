@@ -23,7 +23,10 @@ class IT_Scenario_Jurassic_2 {
         String simpleCompletion = client.invokeModel(AILABS_JURASSIC_2, prompt);
 
         // Using builder returns response object
-        Jurassic2Request request = Jurassic2Request.builder().prompt("Hello").build();
+        Jurassic2Request request = Jurassic2Request.builder()
+                .prompt("Hello")
+                .temperature(0.5)
+                .build();
         Jurassic2Response response = client.invokeModel(request);
 
         // Response object provides high-level API to get completion

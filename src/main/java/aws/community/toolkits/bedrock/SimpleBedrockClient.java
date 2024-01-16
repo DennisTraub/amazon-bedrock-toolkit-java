@@ -1,5 +1,6 @@
 package aws.community.toolkits.bedrock;
 
+import aws.community.toolkits.bedrock.common.TextGenerationConfig;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Request;
 import aws.community.toolkits.bedrock.providers.ailabs.Jurassic2Response;
 import org.json.JSONObject;
@@ -23,6 +24,10 @@ public class SimpleBedrockClient {
     }
 
     public String invokeModel(FoundationModel model, String prompt) {
+        return invokeModel(model, prompt, TextGenerationConfig.DEFAULT);
+    }
+
+    public String invokeModel(FoundationModel model, String prompt, TextGenerationConfig config) {
         if(prompt == null) {
             throw new IllegalArgumentException("Prompt cannot be null");
         }
@@ -33,6 +38,11 @@ public class SimpleBedrockClient {
         InvokeModelRequest request;
 
         if (model.equals(Models.AILABS_JURASSIC_2)) {
+            if (config == TextGenerationConfig.DEFAULT) {
+                config = Models.AILABS_JURASSIC_2.defaultConfig();
+            }
+            Models.AILABS_JURASSIC_2.validate(config);
+
             String payload = new JSONObject()
                     .put("prompt", prompt)
                     .put("temperature", 0.5)
